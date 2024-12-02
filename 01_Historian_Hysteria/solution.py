@@ -1,16 +1,18 @@
-with open('input.txt', 'r') as file:
-   input = file.read().splitlines()
+def get_input():
+    with open('input.txt', 'r') as file:
+        input = file.read().splitlines()
 
-list1 = []
-list2 = []
-for line in input:
-    left, right = map(int, line.split())  
-    list1.append(left)
-    list2.append(right)
-lists = list1, list2
+    list1 = []
+    list2 = []
+    for line in input:
+        left, right = map(int, line.split())  
+        list1.append(left)
+        list2.append(right)
+    lists = list1, list2
+    return lists
    
 
-def sort_lists(lists):
+def get_list_difference(lists):
     list1 = sorted(lists[0])
     list2 = sorted(lists[1])
     distanceTotal = 0
@@ -23,6 +25,9 @@ def sort_lists(lists):
 
     return distanceTotal
 
-print(sort_lists(lists))
+input = get_input()
+list_difference = get_list_difference(input)
+
+print(f"The difference between the lists is {list_difference}")
 
 
