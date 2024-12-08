@@ -1,6 +1,3 @@
-# Count how many rows are safe. The levels are either all increasing or all decreasing.
-# Any two adjacent levels differ by at least one and at most three.
-
 def get_reports():
     with open('input.txt', 'r') as file:
         input = file.read().splitlines()
@@ -12,9 +9,38 @@ def get_reports():
 
 reports = get_reports()
 
+def higher_or_lower(row):
+    higher = 0
+    lower = 0
+    for index, value in enumerate(row[:-1]):
+        if row[index] > row[index + 1]:
+            higher += 1
+        elif row[index] < row[index + 1]:
+            lower += 1
+    if (len(row) - 1) == higher or (len(row) -1) == lower:
+        return True
+    else:
+        return False
+
+def check_adjacent_level(row):
+    for index, value in enumerate(row[:-1]):
+        difference = abs(value - row[index + 1])
+        if difference < 1 or difference > 3:
+            return False
+    return True
+
 def check_reports(reports):
     safe_reports = 0
-    print(reports)
+    for row in reports:
+        trend = higher_or_lower(row)
+        adjacent = check_adjacent_level(row)
+        if trend and adjacent:
+            safe_reports += 1
+    return safe_reports
+    
+    
     
 
-check_reports(reports)
+reports = get_reports()
+answer = print(check_reports(reports))
+
